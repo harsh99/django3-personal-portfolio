@@ -1,0 +1,21 @@
+{% extends 'portfolio/base.html'%}
+
+{% block content %}
+
+<h1>All my blogs</h1>
+<br>
+<a href="{% url 'home' %}">Home</a>
+<br>
+
+<h2>Harsh has written {{blogs.count}} blog{{ blogs.count|pluralize}}</h2> <!---filter to check grammatical syntax and use singular if value is 1--->
+{% for blog in blogs %}
+<a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
+<p>{{blog.description|striptags|truncatechars:100}}</p> <!---trunchatechars filter to limit the num of character displays for blog preview--->
+<!---the safe tag is handy if your description has HTML tags so it'll apply the html tags in inline description.
+If you want don't want the tags to apply nor display, instead of safe use 'striptags'
+
+{{blog.date|date:'M d Y'|upper  }} <!--- filter to customize date--->
+
+{%endfor%}
+
+{% endblock %}
